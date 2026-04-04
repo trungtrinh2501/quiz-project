@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Style 2 - Groovy Retro</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #2D4739;
+    color: #F5E6CA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  .card {
+    background: #3A5A47;
+    border: 3px solid #E8A84C;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 0 30px rgba(232, 168, 76, 0.15);
+  }
+  .badge {
+    display: inline-block;
+    background: #E8A84C;
+    color: #2D4739;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: 26px;
+    font-weight: 800;
+    color: #F5E6CA;
+    margin-bottom: 10px;
+  }
+  p {
+    font-size: 16px;
+    color: #B8C5AB;
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+  .option {
+    background: #2D4739;
+    border: 2px solid #E8A84C;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #F5E6CA;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .option:hover {
+    background: #E8A84C;
+    color: #2D4739;
+    transform: translateX(4px);
+  }
+  .progress {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+  .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #E8A84C;
+    opacity: 0.3;
+  }
+  .dot.active { opacity: 1; }
+  .label { font-size: 12px; color: #8FA882; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="badge">Coffee Personality Quiz</div>
+  <div class="progress">
+    <div class="dot active"></div>
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+  <div class="label">Question 2 of 5</div>
+  <h1>What's your ideal weekend morning?</h1>
+  <p>Pick the one that sounds most like you.</p>
+  <div class="option">Sleeping in until noon, no alarm allowed</div>
+  <div class="option">Up early for a quiet ritual with a good book</div>
+  <div class="option">Hitting up the best new brunch spot in town</div>
+</div>
+</body>
+</html>

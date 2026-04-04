@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Style 1 - Warm Retro</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #F4E8C1;
+    color: #3B2F2F;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  .card {
+    background: #FFF8E7;
+    border: 3px solid #D4A574;
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 8px 8px 0px #D4A574;
+  }
+  .badge {
+    display: inline-block;
+    background: #C75B39;
+    color: #FFF8E7;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: 26px;
+    font-weight: 800;
+    color: #3B2F2F;
+    margin-bottom: 10px;
+  }
+  p {
+    font-size: 16px;
+    color: #6B5B4E;
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+  .option {
+    background: #F4E8C1;
+    border: 2px solid #D4A574;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .option:hover {
+    background: #D4A574;
+    color: #FFF8E7;
+    transform: translateX(4px);
+  }
+  .progress {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+  .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #D4A574;
+    opacity: 0.3;
+  }
+  .dot.active { opacity: 1; background: #C75B39; }
+  .label { font-size: 12px; color: #A8937A; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="badge">Coffee Personality Quiz</div>
+  <div class="progress">
+    <div class="dot active"></div>
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+  <div class="label">Question 2 of 5</div>
+  <h1>What's your ideal weekend morning?</h1>
+  <p>Pick the one that sounds most like you.</p>
+  <div class="option">Sleeping in until noon, no alarm allowed</div>
+  <div class="option">Up early for a quiet ritual with a good book</div>
+  <div class="option">Hitting up the best new brunch spot in town</div>
+</div>
+</body>
+</html>
