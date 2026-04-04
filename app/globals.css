@@ -293,6 +293,44 @@ p {
   color: var(--muted);
 }
 
+/* Share */
+.share-section {
+  margin-bottom: 20px;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.share-button {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  border: 2px solid var(--accent);
+  background: var(--bg-dark);
+  color: var(--cream);
+}
+
+.share-button:hover {
+  background: var(--accent);
+  color: var(--bg-dark);
+  transform: translateY(-2px);
+}
+
+.share-button.copy {
+  border-color: var(--gold);
+}
+
+.share-button.copy:hover {
+  background: var(--gold);
+}
+
 .retake-button {
   background: transparent;
   color: var(--accent);
