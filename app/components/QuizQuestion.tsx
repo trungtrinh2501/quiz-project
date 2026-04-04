@@ -8,6 +8,7 @@ interface QuizQuestionProps {
   questionIndex: number;
   totalQuestions: number;
   onAnswer: (personality: string) => void;
+  onBack?: () => void;
 }
 
 export default function QuizQuestion({
@@ -15,10 +16,18 @@ export default function QuizQuestion({
   questionIndex,
   totalQuestions,
   onAnswer,
+  onBack,
 }: QuizQuestionProps) {
   return (
     <div className="card">
-      <div className="badge">Coffee Personality Quiz</div>
+      <div className="card-top-row">
+        <div className="badge">Coffee Personality Quiz</div>
+        {onBack && (
+          <button className="back-button" onClick={onBack}>
+            &larr; Back
+          </button>
+        )}
+      </div>
 
       <div className="progress">
         {Array.from({ length: totalQuestions }, (_, i) => (

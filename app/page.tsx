@@ -3,20 +3,23 @@
 import { useState } from "react";
 import { questions, PersonalityType } from "./data/quizData";
 import QuizQuestion from "./components/QuizQuestion";
+import Brewing from "./components/Brewing";
 import Results from "./components/Results";
 
-type Screen = "welcome" | "quiz" | "results";
+type Screen = "welcome" | "quiz" | "brewing" | "results";
 
 export default function Home() {
   const [screen, setScreen] = useState<Screen>("welcome");
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<PersonalityType[]>([]);
   const [animating, setAnimating] = useState(false);
+  const [slideDirection, setSlideDirection] = useState<"forward" | "back">("forward");
 
   function handleStart() {
     setScreen("quiz");
     setCurrentQuestion(0);
     setAnswers([]);
+    setSlideDirection("forward");
   }
 
   function handleAnswer(personality: string) {
@@ -24,13 +27,29 @@ export default function Home() {
     setAnswers(newAnswers);
 
     if (currentQuestion < questions.length - 1) {
+      setSlideDirection("forward");
       setAnimating(true);
       setTimeout(() => {
         setCurrentQuestion(currentQuestion + 1);
         setAnimating(false);
       }, 300);
     } else {
-      setScreen("results");
+      setScreen("brewing");
+      setTimeout(() => {
+        setScreen("results");
+      }, 2500);
+    }
+  }
+
+  function handleBack() {
+    if (currentQuestion > 0) {
+      setSlideDirection("back");
+      setAnimating(true);
+      setTimeout(() => {
+        setAnswers(answers.slice(0, -1));
+        setCurrentQuestion(currentQuestion - 1);
+        setAnimating(false);
+      }, 300);
     }
   }
 
@@ -59,19 +78,29 @@ export default function Home() {
   }
 
   if (screen === "quiz") {
+    const animClass = slideDirection === "forward"
+      ? `slide-in ${animating ? "slide-out" : ""}`
+      : `slide-in-back ${animating ? "slide-out-back" : ""}`;
+
     return (
       <div className="quiz-container">
-        <div
-          key={currentQuestion}
-          className={`slide-in ${animating ? "slide-out" : ""}`}
-        >
+        <div key={currentQuestion} className={animClass}>
           <QuizQuestion
             question={questions[currentQuestion]}
             questionIndex={currentQuestion}
             totalQuestions={questions.length}
             onAnswer={handleAnswer}
+            onBack={currentQuestion > 0 ? handleBack : undefined}
           />
         </div>
+      </div>
+    );
+  }
+
+  if (screen === "brewing") {
+    return (
+      <div className="quiz-container">
+        <Brewing />
       </div>
     );
   }
