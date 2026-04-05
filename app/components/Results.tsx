@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import confetti from "canvas-confetti";
+import { track } from "@vercel/analytics";
 import { PersonalityType, personalities } from "../data/quizData";
 
 interface ResultsProps {
@@ -17,6 +19,31 @@ interface PersonalityResult {
 
 export default function Results({ answers, onRetake }: ResultsProps) {
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    const duration = 1500;
+    const end = Date.now() + duration;
+
+    function frame() {
+      confetti({
+        particleCount: 3,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0, y: 0.7 },
+        colors: ["#E85D4A", "#F0C987", "#E8D5B7"],
+      });
+      confetti({
+        particleCount: 3,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1, y: 0.7 },
+        colors: ["#E85D4A", "#F0C987", "#E8D5B7"],
+      });
+      if (Date.now() < end) requestAnimationFrame(frame);
+    }
+    frame();
+  }, []);
+
   const counts: Record<string, number> = {};
   for (const answer of answers) {
     counts[answer] = (counts[answer] || 0) + 1;
@@ -35,6 +62,7 @@ export default function Results({ answers, onRetake }: ResultsProps) {
   const shareUrl = typeof window !== "undefined" ? window.location.origin : "";
 
   async function handleNativeShare() {
+    track("share_clicked", { method: "native", result: primary.name });
     try {
       await navigator.share({ title: "My Coffee Personality", text: shareText, url: shareUrl });
     } catch {
@@ -43,12 +71,14 @@ export default function Results({ answers, onRetake }: ResultsProps) {
   }
 
   async function handleCopy() {
+    track("share_clicked", { method: "copy", result: primary.name });
     await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }
 
   function handleShareX() {
+    track("share_clicked", { method: "x", result: primary.name });
     const url = `https://x.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
     window.open(url, "_blank", "noopener,noreferrer");
   }

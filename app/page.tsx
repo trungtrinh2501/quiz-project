@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { track } from "@vercel/analytics";
 import { questions, PersonalityType } from "./data/quizData";
 import QuizQuestion from "./components/QuizQuestion";
 import Brewing from "./components/Brewing";
@@ -16,6 +17,7 @@ export default function Home() {
   const [slideDirection, setSlideDirection] = useState<"forward" | "back">("forward");
 
   function handleStart() {
+    track("quiz_started");
     setScreen("quiz");
     setCurrentQuestion(0);
     setAnswers([]);
@@ -25,6 +27,7 @@ export default function Home() {
   function handleAnswer(personality: string) {
     const newAnswers = [...answers, personality as PersonalityType];
     setAnswers(newAnswers);
+    track("question_answered", { question: currentQuestion + 1, answer: personality });
 
     if (currentQuestion < questions.length - 1) {
       setSlideDirection("forward");
@@ -34,6 +37,12 @@ export default function Home() {
         setAnimating(false);
       }, 300);
     } else {
+      // Calculate result for the completion event
+      const counts: Record<string, number> = {};
+      for (const a of newAnswers) counts[a] = (counts[a] || 0) + 1;
+      const topPersonality = Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+      track("quiz_completed", { result: topPersonality });
+
       setScreen("brewing");
       setTimeout(() => {
         setScreen("results");
@@ -54,6 +63,7 @@ export default function Home() {
   }
 
   function handleRetake() {
+    track("quiz_retake");
     setScreen("welcome");
     setCurrentQuestion(0);
     setAnswers([]);
